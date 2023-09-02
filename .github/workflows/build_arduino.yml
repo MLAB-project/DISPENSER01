@@ -24,20 +24,20 @@ jobs:
         - name: Install dependencies and build
           run: |
             export ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true
-            sudo snap install arduino-cli tree
+            sudo snap install arduino-cli tree yq
             sudo apt-get install git tree python3
+
+            ADIR=`arduino-cli config dump | yq eval .directories.data`
             
             arduino-cli core update-index --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json > /dev/null
             arduino-cli core install rp2040:rp2040 --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json > /dev/null
 
             arduino-cli lib install 'Adafruit TinyUSB Library@2.2.1' 'TMCStepper' 'Adafruit GFX Library' 'Adafruit BusIO' 'Adafruit SH110X' 'RP2040_PWM' 'microDS18B20'
 
-            arduino-cli config dump
-            arduino-cli board listall
             
-            sudo tree /home/runner/snap 
-            sudo rm -r /home/runner/snap/arduino-cli/41/.arduino15/packages/rp2040/hardware/* || true
-            # mkdir -p /home/runner/snap/arduino-cli/41/.arduino15/packages/rp2040
+            #sudo tree /home/runner/snap 
+            sudo rm -r ${ADIR}/packages/rp2040/hardware/*
+            # mkdir -p ${ADIR}/packages/rp2040
             git clone https://github.com/roman-dvorak/arduino-pico.git -b add_amfoc01 /home/runner/arduino-pico
             cd /home/runner/arduino-pico
             git submodule update --init
@@ -46,7 +46,7 @@ jobs:
             cd ../tools
             python3 ./get.py
 
-            sudo ln -s /home/runner/arduino-pico /home/runner/snap/arduino-cli/41/.arduino15/packages/rp2040/hardware/rp2040
+            sudo ln -s /home/runner/arduino-pico ${ADIR}/packages/rp2040/hardware/rp2040
 
             cd ${{ github.workspace }}
             
