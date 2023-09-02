@@ -37,7 +37,6 @@ struct ToolSet{
   Adafruit_SH1106G* display;
   void* buzzer;
   Data* status;
-  OcularsData* oculars;
   Configuration* config;
 };
 

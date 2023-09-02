@@ -33,7 +33,6 @@ void displayPage2() {
 Adafruit_SH1106G display = Adafruit_SH1106G(128, 64, &SPI, OLED_DC, OLED_RESET, OLED_CS);
 
 Data status{};
-OcularsData ocularsStatus;
 ToolSet toolset;
 Configuration config;
 
@@ -361,7 +360,6 @@ void setupMenu() {
 
   toolset.display = &display;
   toolset.status = &status;
-  toolset.oculars = &ocularsStatus;
   toolset.config = &config;
 
 
@@ -381,16 +379,6 @@ void setupMenu() {
 
   menu.setCurrent(home);
 
-  OcularInfo* eye0 = new OcularInfo(0, "Zaklad");
-  OcularInfo* eye1 = new OcularInfo(1000, "Eye 1");
-  OcularInfo* eye2 = new OcularInfo(20000, "Eye 2");
-  OcularInfo* eye3 = new OcularInfo(300000, "Eye 3");
-
-  ocularsStatus.ocular_list.push_back(eye0);
-  ocularsStatus.ocular_list.push_back(eye1);
-  ocularsStatus.ocular_list.push_back(eye2);
-  ocularsStatus.ocular_list.push_back(eye3);
-  ocularsStatus.actual_ocular = 0;
 
 }
 
