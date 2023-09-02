@@ -1,1 +1,1 @@
-python3 ../upload.py --serial /dev/ttyACM0 --family RP2040 --deploy
+python3 ../upload.py --serial  --family RP2040 --deploy dispenser.uf2
