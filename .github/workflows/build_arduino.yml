@@ -1,0 +1,69 @@
+name: Build firmware
+
+on:
+  push:
+    paths:
+    - 'fw/**'
+    - '**.yml'
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      build_type:
+        required: false
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          continue-on-error: true
+          with:
+            submodules: True
+        
+        - name: Install dependencies and build
+          run: |
+            export ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true
+            sudo snap install arduino-cli
+            sudo apt-get install git tree python3
+            
+            arduino-cli core update-index --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json > /dev/null
+            arduino-cli core install rp2040:rp2040 --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json > /dev/null
+
+            arduino-cli lib install 'Adafruit TinyUSB Library@2.2.1' 'TMCStepper' 'Adafruit GFX Library' 'Adafruit BusIO' 'Adafruit SH110X' 'RP2040_PWM' 'microDS18B20'
+
+            # Smazat upstream verzi knihovny arduino-pico a nahradit ji vlastnim forkem
+            rm -r /home/runner/snap/arduino-cli/39/.arduino15/packages/rp2040/hardware/*
+            # mkdir -p /home/runner/snap/arduino-cli/39/.arduino15/packages/rp2040
+            git clone https://github.com/roman-dvorak/arduino-pico.git -b add_amfoc01 /home/runner/arduino-pico
+            cd /home/runner/arduino-pico
+            git submodule update --init
+            cd pico-sdk
+            git submodule update --init
+            cd ../tools
+            python3 ./get.py
+
+            ln -s /home/runner/arduino-pico /home/runner/snap/arduino-cli/39/.arduino15/packages/rp2040/hardware/rp2040
+
+            cd ${{ github.workspace }}
+            
+            # Vypis konfigurace a podporovanych desek
+            # arduino-cli config dump
+            # arduino-cli board listall
+            
+            PLATFORM=rp2040:rp2040
+            arduino-cli compile --verbose --warnings all --fqbn rp2040:rp2040:astrometers_amfoc01:flash=2097152_524288,usbstack=tinyusb --build-path fw  fw/dispenser
+
+            tree fw
+            
+        - name: Prepare data for build
+          run: |
+            mkdir -p fw/build || true
+            mv fw/dispenser.ino.uf2 fw/build/dispenser.uf2
+            echo "python3 ../upload.py --serial "/dev/ttyACM0" --family RP2040 --deploy" > fw/build/upload.sh
+            chmod +x fw/build/upload.sh
+        
+        - uses: stefanzweifel/git-auto-commit-action@v4
+          with:
+            commit_message: "Bulid firmware"
+            
