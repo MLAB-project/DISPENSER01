@@ -63,7 +63,7 @@ jobs:
           run: |
             mkdir -p fw/build || true
             mv fw/dispenser.ino.uf2 fw/build/dispenser.uf2
-            echo "python3 ../upload.py --serial "/dev/ttyACM0" --family RP2040 --deploy" > fw/build/upload.sh
+            echo "python3 ../upload.py --serial $1 --family RP2040 --deploy dispenser.uf2" > fw/build/upload.sh
             chmod +x fw/build/upload.sh
         
         - uses: stefanzweifel/git-auto-commit-action@v4
