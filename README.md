@@ -7,6 +7,7 @@ MLAB DISPENSER01 is an open-source solder paste, flux, and other liquid material
 ### Features
 - **Dispensing various materials**: Allows for precise and consistent material dispensing.
 - **User-friendly configuration**: Users can create and modify profiles for different types of materials and applications.
+- **External control**: Hand button or footswitch for paste extrusion
 - **Configuration storage in internal storage**: Configurations can be transferred and modified via USB-C.
 
 ## Usage
