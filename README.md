@@ -15,3 +15,8 @@ MLAB DISPENSER01 is an open-source solder paste, flux, and other liquid material
 ## Usage
 
 The DISPENSER01 can be operated using the UI on the OLED display or via an external "wired" controller. A footswitch can also be connected to the dispenser for convenient handling of the device.
+
+
+## Do you have any questions? 
+
+Feel free to write us. Ideally trought [MLAB-project discuss](https://github.com/orgs/MLAB-project/discussions)
