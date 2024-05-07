@@ -1,7 +1,7 @@
 # DISPENSER01
 Smart solder paste dispenser. 
+![PXL_20240507_160355764](https://github.com/MLAB-project/DISPENSER01/assets/5196729/c065def6-bded-49b3-9272-79abaaee53b1)
 
-## Introduction
 MLAB DISPENSER01 is an open-source solder paste, flux, and other liquid materials dispenser project. This device is built on the Astrometers AMFOC01 hardware, which is equipped with an ARM M0+ processor and a powerful coil driver, ensuring reliable control of the electromagnetic valve.
 
 ### Features
