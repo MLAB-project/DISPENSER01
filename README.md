@@ -1,6 +1,4 @@
-# DISPENSER01
-
-Smart solder paste dispenser.
+# DISPENSER01 - Smart, open-source solder paste dispenser
 
 ![PXL\_20240507\_160355764](https://github.com/MLAB-project/DISPENSER01/assets/5196729/c065def6-bded-49b3-9272-79abaaee53b1)
 
@@ -11,7 +9,7 @@ The device is based on the [AstroMeters AMFOC01 hardware](https://www.astrometer
 
 ## Development Story
 
-For a long time, I was searching for suitable hardware for a liquid dispenser using standard cartridges—mainly for solder paste, flux, and adhesives. On the internet, you can typically find either expensive Chinese boxes, or mechanical dispensers using gear motors. When I faced this problem myself, I found neither solution to be ideal.
+For a long time, I was searching for suitable hardware for a liquid dispenser using standard cartridges—mainly for solder paste, flux, and adhesives. On the internet, you can typically find either expensive Chinese boxes or mechanical dispensers using gear motors. When I faced this problem myself, I found neither solution to be ideal.
 
 The quickest and, as it turned out, most practical approach was to adapt the firmware of an open-source focuser (the [AMFOC01](https://www.astrometers.eu/products/AMFOC01/)), which already included a microcontroller, display, and motor driver—perfect for controlling a solenoid valve as well.
 
@@ -53,7 +51,7 @@ DISPENSER01 is designed for maximum user comfort.
 All key parameters—including extrusion time, gap between extrusions, and the number of repeats—can be set directly using the four buttons on the front panel.
 Material dispensing is controlled by a mechanical foot pedal, enabling hands-free and precise operation.
 
-The buttons also allows you to select whether you want to use extruder 1 or extruder 2.
+The buttons also allow you to select whether you want to use extruder 1 or extruder 2.
 
 ## Availability
 
